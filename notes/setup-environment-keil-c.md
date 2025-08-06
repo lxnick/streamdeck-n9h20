@@ -46,3 +46,6 @@ Execute  NuMicro ARM9 Device Database for Keil 1.02.exe
 ## Test  Armani
     -N9H20_Armani_Stream_Deck\SampleCode\USBD\HID_Transfer_EStreamDeck\Armani_StreamDeck_480_272
     -N9H20_Armani_Stream_Deck\SampleCode\USBD\HID_Transfer_EStreamDeck\Armani_StreamDeck_800_480
+
+##  Setup N9H20_NonOS_BSP
+    -clone https://github.com/OpenNuvoton/N9H20_NonOS_BSP

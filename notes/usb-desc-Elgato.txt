@@ -1,0 +1,301 @@
+
+    =========================== USB Port3 ===========================
+
+Connection Status        : 0x01 (Device is connected)
+Port Chain               : 1-4-3
+Properties               : 0x00
+ IsUserConnectable       : no
+ PortIsDebugCapable      : no
+ PortHasMultiCompanions  : no
+ PortConnectorIsTypeC    : no
+ConnectionIndex          : 0x03 (Port 3)
+
+      ========================== Summary =========================
+Vendor ID                : 0x0FD9 (El Gato Software LLC)
+Product ID               : 0x0080
+Manufacturer String      : "Elgato"
+Product String           : "Stream Deck MK.2"
+Serial                   : "DL52L2A35739"
+USB Version              : 2.0 (480 Mbit/s)
+Port maximum Speed       : High-Speed
+Device maximum Speed     : High-Speed
+Device Connection Speed  : High-Speed
+Self powered             : no
+Demanded Current         : 500 mA
+Used Endpoints           : 3
+
+      ======================== USB Device ========================
+
+        +++++++++++++++++ Device Information ++++++++++++++++++
+Device Description       : USB 輸入裝置
+Device Path 1            : \\?\USB#VID_0FD9&PID_0080#DL52L2A35739#{a5dcbf10-6530-11d2-901f-00c04fb951ed} (GUID_DEVINTERFACE_USB_DEVICE)
+Device Path 2            : \\?\USB#VID_0FD9&PID_0080#DL52L2A35739#{a6782bce-4376-4de2-8096-70aa9e8fed19}
+Kernel Name              : \Device\USBPDO-7
+Device ID                : USB\VID_0FD9&PID_0080\DL52L2A35739
+Hardware IDs             : USB\VID_0FD9&PID_0080&REV_0420 USB\VID_0FD9&PID_0080
+Driver KeyName           : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0091 (GUID_DEVCLASS_HIDCLASS)
+Driver                   : \SystemRoot\System32\drivers\hidusb.sys (Version: 10.0.26100.4768  Date: 2025-07-23  Company: Microsoft Corporation)
+Driver Inf               : C:\WINDOWS\inf\input.inf
+Legacy BusType           : PNPBus
+Class                    : HIDClass
+Class GUID               : {745a17a0-74d3-11d0-b6fe-00a0c90f57da} (GUID_DEVCLASS_HIDCLASS)
+Service                  : HidUsb
+Enumerator               : USB
+Location Info            : Port_#0003.Hub_#0003
+Address                  : 3
+Location IDs             : PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(4)#USB(3), ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS04)#USB(3)
+Container ID             : {e66ae8db-a58f-5c00-9f91-45ede941c3be}
+Manufacturer Info        : (標準系統裝置)
+Capabilities             : 0x94 (Removable, UniqueID, SurpriseRemovalOK)
+Status                   : 0x0180600A (DN_DRIVER_LOADED, DN_STARTED, DN_DISABLEABLE, DN_REMOVABLE, DN_NT_ENUMERATOR, DN_NT_DRIVER)
+Problem Code             : 0
+SelectiveSuspendEnabled  : 0
+EnhancedPowerMgmtEnabled : 1
+Power State              : D0 (supported: D0, D1, D2, D3, wake from D0, wake from D1, wake from D2)
+
+        +++++++++++++++++ Registry USB Flags +++++++++++++++++
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\usbflags\0FD900800420
+ osvc                    : REG_BINARY 00 00
+
+        ---------------- Connection Information ---------------
+Connection Index         : 0x03 (Port 3)
+Connection Status        : 0x01 (DeviceConnected)
+Current Config Value     : 0x01 (Configuration 1)
+Device Address           : 0x0C (12)
+Is Hub                   : 0x00 (no)
+Device Bus Speed         : 0x02 (High-Speed)
+Number of open Pipes     : 0x02 (2 pipes to data endpoints)
+Pipe[0]                  : EndpointID=1  Direction=IN   ScheduleOffset=0  Type=Interrupt  wMaxPacketSize=0x200   bInterval=1   -> 39200 Bits/ms = 4900000 Bytes/s
+Pipe[1]                  : EndpointID=2  Direction=OUT  ScheduleOffset=0  Type=Interrupt  wMaxPacketSize=0x400   bInterval=1   -> 77424 Bits/ms = 9678000 Bytes/s
+Data (HexDump)           : 03 00 00 00 12 01 00 02 00 00 00 40 D9 0F 80 00   ...........@....
+                           20 04 01 02 03 01 01 02 00 0C 00 02 00 00 00 01    ...............
+                           00 00 00 07 05 81 03 00 02 01 00 00 00 00 07 05   ................
+                           02 03 00 04 01 00 00 00 00                        .........
+
+        --------------- Connection Information V2 -------------
+Connection Index         : 0x03 (3)
+Length                   : 0x10 (16 bytes)
+SupportedUsbProtocols    : 0x03
+ Usb110                  : 1 (yes, port supports USB 1.1)
+ Usb200                  : 1 (yes, port supports USB 2.0)
+ Usb300                  : 0 (no, port not supports USB 3.0)
+ ReservedMBZ             : 0x00
+Flags                    : 0x00
+ DevIsOpAtSsOrHigher     : 0 (Device is not operating at SuperSpeed or higher)
+ DevIsSsCapOrHigher      : 0 (Device is not SuperSpeed capable or higher)
+ DevIsOpAtSsPlusOrHigher : 0 (Device is not operating at SuperSpeedPlus or higher)
+ DevIsSsPlusCapOrHigher  : 0 (Device is not SuperSpeedPlus capable or higher)
+ ReservedMBZ             : 0x00
+Data (HexDump)           : 03 00 00 00 10 00 00 00 03 00 00 00 00 00 00 00   ................
+
+    ---------------------- Device Descriptor ----------------------
+bLength                  : 0x12 (18 bytes)
+bDescriptorType          : 0x01 (Device Descriptor)
+bcdUSB                   : 0x200 (USB Version 2.0)
+bDeviceClass             : 0x00 (defined by the interface descriptors)
+bDeviceSubClass          : 0x00
+bDeviceProtocol          : 0x00
+bMaxPacketSize0          : 0x40 (64 bytes)
+idVendor                 : 0x0FD9 (El Gato Software LLC)
+idProduct                : 0x0080
+bcdDevice                : 0x0420
+iManufacturer            : 0x01 (String Descriptor 1)
+ Language 0x0409         : "Elgato"
+iProduct                 : 0x02 (String Descriptor 2)
+ Language 0x0409         : "Stream Deck MK.2"
+iSerialNumber            : 0x03 (String Descriptor 3)
+ Language 0x0409         : "DL52L2A35739"
+bNumConfigurations       : 0x01 (1 Configuration)
+Data (HexDump)           : 12 01 00 02 00 00 00 40 D9 0F 80 00 20 04 01 02   .......@.... ...
+                           03 01                                             ..
+
+    ------------------ Configuration Descriptor -------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x02 (Configuration Descriptor)
+wTotalLength             : 0x0029 (41 bytes)
+bNumInterfaces           : 0x01 (1 Interface)
+bConfigurationValue      : 0x01 (Configuration 1)
+iConfiguration           : 0x00 (No String Descriptor)
+bmAttributes             : 0xA0
+ D7: Reserved, set 1     : 0x01
+ D6: Self Powered        : 0x00 (no)
+ D5: Remote Wakeup       : 0x01 (yes)
+ D4..0: Reserved, set 0  : 0x00
+MaxPower                 : 0xFA (500 mA)
+Data (HexDump)           : 09 02 29 00 01 01 00 A0 FA 09 04 00 00 02 03 00   ..).............
+                           00 00 09 21 10 01 00 01 22 D3 00 07 05 81 03 00   ...!....".......
+                           02 01 07 05 02 03 00 04 01                        .........
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x00 (Interface 0)
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x02 (2 Endpoints)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x00 (None)
+bInterfaceProtocol       : 0x00 (None)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 00 00 02 03 00 00 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0110 (HID Version 1.10)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 10 01 00 01 22 D3 00                        .!...."..
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x00D3 (211 bytes)
+  05 0C             Usage Page (Consumer)
+  09 01             Usage (Consumer Control)
+  A1 01             Collection (Application)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 FF 03            Report Count (1023)
+  85 02               Report ID (0x02)
+  91 02               Output (Var)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 FF 01            Report Count (511)
+  85 01               Report ID (0x01)
+  81 02               Input (Var)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 03               Report ID (0x03)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 07               Report ID (0x07)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 05               Report ID (0x05)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 04               Report ID (0x04)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 06               Report ID (0x06)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 08               Report ID (0x08)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 09               Report ID (0x09)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 0A               Report ID (0x0A)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 0B               Report ID (0x0B)
+  B1 04               Feature (Rel)
+  0A 00 FF            Usage (unk)
+  15 00               Logical Minimum (0)
+  26 FF 00            Logical Maximum (255)
+  75 08               Report Size (8)
+  96 1F 00            Report Count (31)
+  85 0C               Report ID (0x0C)
+  B1 04               Feature (Rel)
+  C0                End Collection
+Data (HexDump)           : 05 0C 09 01 A1 01 0A 00 FF 15 00 26 FF 00 75 08   ...........&..u.
+                           96 FF 03 85 02 91 02 0A 00 FF 15 00 26 FF 00 75   ............&..u
+                           08 96 FF 01 85 01 81 02 0A 00 FF 15 00 26 FF 00   .............&..
+                           75 08 96 1F 00 85 03 B1 04 0A 00 FF 15 00 26 FF   u.............&.
+                           00 75 08 96 1F 00 85 07 B1 04 0A 00 FF 15 00 26   .u.............&
+                           FF 00 75 08 96 1F 00 85 05 B1 04 0A 00 FF 15 00   ..u.............
+                           26 FF 00 75 08 96 1F 00 85 04 B1 04 0A 00 FF 15   &..u............
+                           00 26 FF 00 75 08 96 1F 00 85 06 B1 04 0A 00 FF   .&..u...........
+                           15 00 26 FF 00 75 08 96 1F 00 85 08 B1 04 0A 00   ..&..u..........
+                           FF 15 00 26 FF 00 75 08 96 1F 00 85 09 B1 04 0A   ...&..u.........
+                           00 FF 15 00 26 FF 00 75 08 96 1F 00 85 0A B1 04   ....&..u........
+                           0A 00 FF 15 00 26 FF 00 75 08 96 1F 00 85 0B B1   .....&..u.......
+                           04 0A 00 FF 15 00 26 FF 00 75 08 96 1F 00 85 0C   ......&..u......
+                           B1 04 C0                                          ...
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x81 (Direction=IN EndpointID=1)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0200
+ Bits 15..13             : 0x00 (reserved, must be zero)
+ Bits 12..11             : 0x00 (0 additional transactions per microframe -> allows 1..1024 bytes per packet)
+ Bits 10..0              : 0x200 (512 bytes per packet)
+bInterval                : 0x01 (1 microframe -> 0.125 ms)
+Data (HexDump)           : 07 05 81 03 00 02 01                              .......
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x02 (Direction=OUT EndpointID=2)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0400
+ Bits 15..13             : 0x00 (reserved, must be zero)
+ Bits 12..11             : 0x00 (0 additional transactions per microframe -> allows 1..1024 bytes per packet)
+ Bits 10..0              : 0x400 (1024 bytes per packet)
+bInterval                : 0x01 (1 microframe -> 0.125 ms)
+Data (HexDump)           : 07 05 02 03 00 04 01                              .......
+
+      -------------------- String Descriptors -------------------
+             ------ String Descriptor 0 ------
+bLength                  : 0x04 (4 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language ID[0]           : 0x0409 (English - United States)
+Data (HexDump)           : 04 03 09 04                                       ....
+             ------ String Descriptor 1 ------
+bLength                  : 0x0E (14 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "Elgato"
+Data (HexDump)           : 0E 03 45 00 6C 00 67 00 61 00 74 00 6F 00         ..E.l.g.a.t.o.
+             ------ String Descriptor 2 ------
+bLength                  : 0x22 (34 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "Stream Deck MK.2"
+Data (HexDump)           : 22 03 53 00 74 00 72 00 65 00 61 00 6D 00 20 00   ".S.t.r.e.a.m. .
+                           44 00 65 00 63 00 6B 00 20 00 4D 00 4B 00 2E 00   D.e.c.k. .M.K...
+                           32 00                                             2.
+             ------ String Descriptor 3 ------
+bLength                  : 0x1A (26 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "DL52L2A35739"
+Data (HexDump)           : 1A 03 44 00 4C 00 35 00 32 00 4C 00 32 00 41 00   ..D.L.5.2.L.2.A.
+                           33 00 35 00 37 00 33 00 39 00                     3.5.7.3.9.
