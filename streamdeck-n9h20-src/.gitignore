@@ -1,0 +1,22 @@
+
+# Keil MDK (uVision) generated files
+*.axf
+*.bak
+*.dep
+*.d
+*.hex
+*.lst
+*.lnp
+*.map
+*.o
+*.plg
+*.sct
+*.tra
+*.iex
+*.crf
+*.htm
+*.uvopt
+*.uvoptx
+*.uvprojx
+*.uvgui.*
+*.uvguix.*
