@@ -8,6 +8,8 @@
 #include "Common.h"
 #include "N9H20.h"
 
+#include "develop/develop_osd.h"
+
 // #define __FORCE_FULLSPEED__
 
 /* Mass_Storage command base address */
@@ -709,7 +711,11 @@ void EPB_Handler(UINT32 u32IntEn, UINT32 u32IntStatus)
                 if (jpeg_store_idx >= ICON_BUFFER_NUM)
                     jpeg_store_idx = 0;
             }
-        }
+        } 
+				else  if (g_usb_out_buf[1] == 0xD0)
+				{
+					command_fill( &g_usb_out_buf[0]);
+				}
     }
 }
 

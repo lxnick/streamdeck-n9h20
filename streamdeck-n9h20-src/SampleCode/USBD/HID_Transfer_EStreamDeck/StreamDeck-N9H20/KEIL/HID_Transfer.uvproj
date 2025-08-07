@@ -491,6 +491,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>develop</GroupName>
+          <Files>
+            <File>
+              <FileName>develop_osd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_osd.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_osd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_osd.h</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -977,6 +992,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>develop</GroupName>
+          <Files>
+            <File>
+              <FileName>develop_osd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_osd.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_osd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_osd.h</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -1460,6 +1490,21 @@
               <FileName>HID.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HID.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>develop</GroupName>
+          <Files>
+            <File>
+              <FileName>develop_osd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_osd.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_osd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_osd.h</FilePath>
             </File>
           </Files>
         </Group>
