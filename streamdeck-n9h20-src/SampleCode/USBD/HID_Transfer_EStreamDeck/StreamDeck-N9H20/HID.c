@@ -9,6 +9,7 @@
 #include "N9H20.h"
 
 #include "develop/develop_osd.h"
+#include "develop/stream_command.h"
 
 // #define __FORCE_FULLSPEED__
 
@@ -99,7 +100,7 @@ __align(4) static UINT8 gu8JPEGBuff[0x100000] = {0};         /* JPEG buffer to d
 __align(4) static UINT8 gTemp[EPA_MAX_PKT_SIZE];             /* Page buffer to upload/download through HID report */
 #endif
 
-static UINT32 g_u32BytesInJPEGBuf = 0; /* The bytes of data in g_u8JPEGBuff */
+//static UINT32 g_u32BytesInJPEGBuf = 0; /* The bytes of data in g_u8JPEGBuff */
 
 CMD_T *pCmd;
 UINT8 *g_u8PageBuff, *g_u8TestPages, *g_Temp, *g_u8JPEGBuff;
@@ -675,7 +676,7 @@ void EPB_Handler(UINT32 u32IntEn, UINT32 u32IntStatus)
     if (u32IntStatus & (DATA_RxED_IS | SHORT_PKT_IS))
     {
         UINT32 len;
-        UINT32 jpeg_len;
+//        UINT32 jpeg_len;
 
         len = inp32(EPB_DATA_CNT) & 0xffff; /* Get data from Endpoint FIFO */
         // sysprintf("len: %d\n", len);
@@ -689,33 +690,10 @@ void EPB_Handler(UINT32 u32IntEn, UINT32 u32IntStatus)
         outp32(DMA_CTRL_STS, inp32(DMA_CTRL_STS) | DMA_EN);
         while (inp32(DMA_CTRL_STS) & DMA_EN)
             ;
-
-        if (g_usb_out_buf[0] == 0x02 && g_usb_out_buf[1] == 0x07)
-        {
-            // image data begin
-            if (jpeg_data_idx == 0)
-            {
-                g_jpeg_buf[jpeg_store_idx][jpeg_data_idx] = g_usb_out_buf[2]; // Icon ID
-                jpeg_data_idx++;
-            }
-
-            jpeg_len = g_usb_out_buf[4] + (g_usb_out_buf[5] << 8);
-            memcpy(&g_jpeg_buf[jpeg_store_idx][jpeg_data_idx], &g_usb_out_buf[8], jpeg_len);
-            jpeg_data_idx += jpeg_len;
-
-            // image data end
-            if (g_usb_out_buf[3] == 1)
-            {
-                jpeg_data_idx = 0;
-                jpeg_store_idx++;
-                if (jpeg_store_idx >= ICON_BUFFER_NUM)
-                    jpeg_store_idx = 0;
-            }
-        } 
-				else  if (g_usb_out_buf[1] == 0xD0)
-				{
-					command_fill( &g_usb_out_buf[0]);
-				}
+				
+				on_receive_data(g_usb_out_buf, 1024);
+				
+	
     }
 }
 

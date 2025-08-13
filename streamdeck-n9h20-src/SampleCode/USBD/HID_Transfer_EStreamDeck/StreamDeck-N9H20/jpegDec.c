@@ -47,8 +47,8 @@ void image_rotate_transfer(UINT16 panel_width, UINT16 panel_height, UINT16 x, UI
 BOOL JpegDecHeaderComplete(void)
 {
     JPEG_INFO_T jpegInfo;
-    UINT32 u32TargetWidth, u32TargetHeight;
-    UINT32 u32OutputOffset = 0;
+//    UINT32 u32TargetWidth, u32TargetHeight;
+//    UINT32 u32OutputOffset = 0;
     // UINT32 shift_x, shift_y;
 
     /* Get the JPEG information(jpeg_width, jpeg_height, and yuvformat are valid) */

@@ -10,6 +10,8 @@
 #include "peripheral.h"
 #include "N9H20.h"
 
+#include "develop/frame_buffer.h"
+
 void HIDStart(void);
 
 #if defined(__GNUC__)
@@ -70,7 +72,7 @@ int main(void)
     // shift the frame buffer to 0x80000000
     g_FrameBuffer = (CHAR *)((UINT32)g_pu8FrameBuffer | 0x80000000);
     g_JpegBuffer = (CHAR *)((UINT32)g_pu8JpegBuffer | 0x80000000);
-    g_FrameBuffer_test = (CHAR *)((UINT32)g_pu8FrameBuffer_test | 0x80000000);
+//    g_FrameBuffer_test = (CHAR *)((UINT32)g_pu8FrameBuffer_test | 0x80000000);
 
     /* Init Panel */
     lcdInfo.ucVASrcFormat = DRVVPOST_FRAME_RGB565;
@@ -78,10 +80,9 @@ int main(void)
     lcdInfo.nScreenHeight = PANEL_HEIGHT;
 
     vpostLCMInit(&lcdInfo, (UINT32 *)g_FrameBuffer);
+		
+//		fb_init();
 
-    // set the buffer to background color
-    //memset(g_FrameBuffer, 0x77, PANEL_WIDTH * PANEL_HEIGHT * 2);
-    //memset(g_FrameBuffer_test, 0x55, PANEL_WIDTH * PANEL_HEIGHT * 2);
 
     // Eden
     // gpio_interrupt_init();
@@ -94,8 +95,13 @@ int main(void)
 
     while (1)
     {
-        draw_icon();
+//        draw_icon();
         key_press();
+			
+				main_task();
+			
+//			fb_animate();
+			
     }
 }
 
