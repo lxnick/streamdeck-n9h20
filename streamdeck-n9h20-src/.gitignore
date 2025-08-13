@@ -1,4 +1,4 @@
-
+\
 # Keil MDK (uVision) generated files
 *.axf
 *.bak
@@ -20,3 +20,9 @@
 *.uvprojx
 *.uvgui.*
 *.uvguix.*
+
+# Original project code
+SampleCode\USBD\HID_Transfer_EStreamDeck\Armani_StreamDeck_480_272\
+SampleCode\USBD\HID_Transfer_EStreamDeck\Armani_StreamDeck_800_480\
+SampleCode\USBD\HID_Transfer_EStreamDeck\Doc\
+SampleCode\USBD\HID_Transfer_EStreamDeck\WindowsTool\
