@@ -11,6 +11,8 @@
 #include "N9H20.h"
 
 #include "develop/frame_buffer.h"
+#include "develop/develop_tick.h"
+#include "develop/develop_op_queue.h"
 
 void HIDStart(void);
 
@@ -37,12 +39,32 @@ void delay(int delay)
         ;
 }
 
+
+
+volatile BOOL new_frame_flag = FALSE;
+
+void tick_callback_10ms(void)
+{
+		static int tick_count = 0;
+	
+		tick_count++;
+		if ( tick_count >= 100 )
+		{
+//			sysprintf("pass 1 second\n");
+			tick_count = 0;
+			new_frame_flag = TRUE;
+		}		
+//	new_frame_flag = TRUE;		
+}
+
+
 //==================================================================================================
 int main(void)
 {
     WB_UART_T uart;
     unsigned int volatile status = 0;
     UINT32 u32ExtFreq;
+		UINT32 u32Tick;
     sysUartPort(1);
     u32ExtFreq = sysGetExternalClock(); /* Hz unit */
     uart.uiFreq = u32ExtFreq * 1000;
@@ -82,8 +104,11 @@ int main(void)
     vpostLCMInit(&lcdInfo, (UINT32 *)g_FrameBuffer);
 		
 //		fb_init();
-
-
+		develop_tick_start(TIMER0,TICK_10US);
+		develop_tick_set_event(TIMER0, 1000, tick_callback_10ms );
+		
+		op_queue_init();
+		
     // Eden
     // gpio_interrupt_init();
     kpi_init();
@@ -92,16 +117,27 @@ int main(void)
     jpegOpen();
 
     HIDStart();
+		
+
 
     while (1)
     {
-//        draw_icon();
-        key_press();
+
+				
+
+//				sysprintf("Tick  %d\n",u32Tick );				
+				
+//				draw_icon();
+//        key_press();
 			
 				main_task();
+		
+//				fb_animate();
 			
-//			fb_animate();
 			
+//				if ( ! new_frame_flag)
+//						continue;
+//				new_frame_flag = FALSE;
     }
 }
 

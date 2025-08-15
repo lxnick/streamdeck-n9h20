@@ -17,6 +17,7 @@
 #define RGB565_RED			(0xF800)
 #define RGB565_GREEN		(0x07D0)
 #define RGB565_BLUE			(0x001F)
+#define RGB565_YELLOW		(0xFFD0)
 
 #define IMAGE_END			0x01
 

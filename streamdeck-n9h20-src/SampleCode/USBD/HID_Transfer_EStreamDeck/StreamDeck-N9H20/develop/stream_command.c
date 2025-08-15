@@ -3,6 +3,9 @@
 
 #include "N9H20_JPEG.h"
 
+#include "develop_tick.h"
+#include "develop_op_queue.h"
+
 struct receive_session
 {
 	uint8_t report_id;
@@ -30,6 +33,8 @@ struct  download_icon
 
 struct decode_info
 {
+		uint16_t width;
+		uint16_t height;
 		uint8_t* buffer;
 };	
 
@@ -75,8 +80,8 @@ BOOL decode_on_jpeg_header(void)
     if (jpegInfo.jpeg_width == 0 || jpegInfo.jpeg_height == 0)
         return FALSE;
 		
-		session.w = jpegInfo.jpeg_width;
-		session.h = jpegInfo.jpeg_height;
+		decode_data.width = jpegInfo.jpeg_width;
+		decode_data.height = jpegInfo.jpeg_height;
 
 #if 0
     /* DownScale size control */
@@ -118,7 +123,6 @@ BOOL decode_on_jpeg_header(void)
 //    shift_x = ((icon_index % ICON_ROW_COUNT) * ICON_SPACE_WIDTH) + 12;
 //    shift_y = (icon_index / ICON_ROW_COUNT) * ICON_SPACE_HEIGHT + 8;
 
-
     /* Set Decode Stride to Panel width */
     jpegIoctl(JPEG_IOCTL_SET_DECODE_STRIDE, jpegInfo.jpeg_width, 0);
 
@@ -131,7 +135,9 @@ BOOL decode_on_jpeg_header(void)
 
 bool decode_jpeg(UINT32 u32SrcAddr, UINT32 u32DestAddr)
 {
-		decode_data.buffer = (uint8_t*) u32DestAddr;
+		decode_data.buffer = (uint8_t*) (u32DestAddr | 0x80000000);
+		decode_data.width = 0;
+		decode_data.height = 0;
 	
     /* JPEG Init */
     jpegInit();
@@ -156,8 +162,11 @@ bool decode_jpeg(UINT32 u32SrcAddr, UINT32 u32DestAddr)
     //    }
 
     jpegWait();
+		
+		if ( (decode_data.width == 0 ) || (decode_data.height == 0 ))
+			return false;
 
-    return 0;
+    return true;
 }
 
 struct  download_icon download_icon = 
@@ -225,6 +234,12 @@ void stream_command_draw(uint8_t* data)
 }		
 #endif
 
+
+#define ICON_ROW_COUNT 5
+#define ICON_COL_COUNT 3
+#define ICON_SPACE_WIDTH 96
+#define ICON_SPACE_HEIGHT 88
+
 void receive_elgato(uint8_t* buffer, int length)
 {
 	uint16_t  data_length;
@@ -243,9 +258,25 @@ void receive_elgato(uint8_t* buffer, int length)
 	memcpy(	session.buffer + 	session.collected, buffer + 8, data_length);
 	session.collected += data_length;
 		
+	
 	if ( 	buffer[3] == 1)
-		session.receive_done = true;
-}	
+	{	
+		struct op_node node;
+		
+		node.active = 1;
+		node.op = OP_FILE;
+		node.icon = session.icon_id;
+		node.buffer = (uint8_t*) malloc( session.collected );
+		memcpy( node.buffer,session.buffer, session.collected);
+		node.length = session.collected;
+		node.x = ((session.icon_id % ICON_ROW_COUNT) * ICON_SPACE_WIDTH) + 12;
+		node.y = (session.icon_id / ICON_ROW_COUNT) * ICON_SPACE_HEIGHT + 8;	
+		
+		op_queue_add(&node);
+		
+		reset_receive_session();
+	}	
+}
 
 void receive_fill(uint8_t* buffer, int length)
 {
@@ -281,7 +312,7 @@ void on_receive_data(uint8_t* buffer, int length)
 	switch ( buffer[1] )
 	{
 		case COMMAND_ELGATO:
-//			receive_elgato(buffer,length);
+			receive_elgato(buffer,length);
 			break;
 		case COMMAND_FILL:
 			receive_fill(buffer,length);
@@ -294,35 +325,47 @@ void on_receive_data(uint8_t* buffer, int length)
 	}	
 }	
 
+void  TestCopyRect(uint16_t x, uint16_t y,  uint16_t w,  uint16_t  h)
+{
+		int i;
+		uint16_t* drawn = (uint16_t* ) malloc( w * h * 2 );
+
+		for( i=0; i < w * h; i ++)
+			drawn[i] = RGB565_BLUE;
+	
+		fb_copy_rect( (uint8_t* )drawn, x, y, w, h );
+	
+		free( drawn);
+	
+}
+
+
+
 void  main_task(void)
 {
-	if ( session.receive_done )
+	struct op_node node;
+	
+	if ( op_queue_get(&node) )
 	{
-			decode_jpeg((UINT32) download_icon.buffer, (UINT32) decode_buffer);	
-//			fb_copy_rect(decode_buffer, session.w, session.h, session.x, session.y);		
-			fb_copy_rect(decode_buffer, session.w, session.h, session.x, session.y);	
-
-//			fb_fill_rect(session.w,0,session.w,session.h,0xF800);		
-			reset_receive_session();
+			sysprintf("Get Node: %d\n", node.seq);
+			sysprintf("\tIcon ID %d\n",node.icon );
 		
+			sysprintf("\tLength %d\n",node.length );		
+		
+			if ( ! decode_jpeg((UINT32) node.buffer, (UINT32) decode_buffer))
+					return;
 
+			sysprintf("\tRect (%d,%d,%d,%d) \n",node.x, node.y, decode_data.width, decode_data.height);			
+//			fb_copy_rect(decode_buffer, decode_data.width, decode_data.height, node.x, node.y);
+			
+//			fb_fill_rect(node.x, node.y, decode_data.width, decode_data.height, RGB565_YELLOW);
+			fb_copy_rect(decode_buffer, decode_data.width, decode_data.height, node.x, node.y);
+//			TestCopyRect(0, 0, decode_data.width, decode_data.height);
+		
+			op_queue_release(&node);
 	}
 	
-//	fb_swap();
 
-#if 0	
-	if ( icon_ready )
-	{
-//		memset(decode_buffer,0, FB_SIZE);
-		decode_jpeg((UINT32) download_icon.buffer, (UINT32) decode_buffer);	
-		
-		fb_copy_rect(decode_buffer, draw_icon.rect.w, draw_icon.rect.h, draw_icon.rect.x, draw_icon.rect.y);
-		
-//		fb_fill_rect(0,0,96,96,0xF800);
-		
-		fb_swap();
-	}
-#endif
 
 }	
 

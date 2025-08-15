@@ -529,6 +529,26 @@
               <FileType>5</FileType>
               <FilePath>..\develop\stream_host.h</FilePath>
             </File>
+            <File>
+              <FileName>develop_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_tick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_tick.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_op_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_op_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_op_queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_op_queue.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1055,6 +1075,26 @@
               <FileType>5</FileType>
               <FilePath>..\develop\stream_host.h</FilePath>
             </File>
+            <File>
+              <FileName>develop_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_tick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_tick.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_op_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_op_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_op_queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_op_queue.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1580,6 +1620,26 @@
               <FileName>stream_host.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\develop\stream_host.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_tick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_tick.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_op_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_op_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_op_queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_op_queue.h</FilePath>
             </File>
           </Files>
         </Group>

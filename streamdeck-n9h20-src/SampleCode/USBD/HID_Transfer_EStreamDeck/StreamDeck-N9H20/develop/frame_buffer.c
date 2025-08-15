@@ -7,7 +7,7 @@
 // Set bit31=1 as cacheable alias
 #define TO_CACHE_ADDR(p)    ((void *)((UINT32)(p) |  0x80000000))
 #define TO_NC_ADDR(p)       ((void *)((UINT32)(p) & ~0x80000000))
-
+	
 // Set cache  alignemnt 32 bytes
 #define CACHE_LINE_BYTES    32U
 #define ALIGN_DOWN(v,a)     ((UINT32)(v) & ~((UINT32)(a) - 1U))
@@ -139,35 +139,19 @@ void fb_fill_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color
 void fb_copy_rect(uint8_t* src, uint16_t srcw, uint16_t srch, uint16_t destx, uint16_t desty)
 {
 		int i, j;
-    uint16_t* line;	
-		uint8_t* buffer = fb_get_draw_buffer();
+	
+		uint8_t* dest = fb_get_draw_buffer();
+		int dest_offset = (desty*FB_LINE+ destx*FB_PER_PIXEL);
 	
 		int line_size = srcw * FB_PER_PIXEL;
+		uint16_t* src_ptr = (uint16_t*)  ((UINT32)src| 0x80000000) ;
+		uint16_t* dest_ptr = (uint16_t*) ( (UINT32) (dest + dest_offset) | 0x80000000) ;
 	
-    int offset  =  (desty*FB_LINE+ destx*FB_PER_PIXEL);
-	
-		uint16_t* src_line = (uint16_t*) src;
-		uint16_t* dest_line = (uint16_t*) ( buffer + offset);
-
     for( i=0; i < srch; i ++)
     {
-#if 1	
-				src_line = (uint16_t*) (src + i * line_size );
-				dest_line = (uint16_t*) (buffer + (desty + i) * FB_LINE + destx * FB_PER_PIXEL);
-			
-				for ( j=0; j < srcw; j ++)	
-					dest_line[j] = src_line[j];
-//						dest_line[j] = RGB565_BLUE;
-			
-//				memcpy(src_line, dest_line, line_size);
-//				src_line += line_size;
-//				dest_line += FB_LINE;
-#else
-				line = (uint16_t*) (dest_line + i * FB_LINE);
-			
-				for ( j=0; j < srcw; j ++)
-					line[j] = RGB565_GREEN;
-#endif			
+				memcpy(dest_ptr, src_ptr, line_size);
+				dest_ptr += FB_LINE;	
+				src_ptr += line_size;			
     }  	
 }	
 
@@ -204,7 +188,7 @@ void fb_animate(void)
 
 
         // Present
-        fb_swap();
+ //       fb_swap();
 
         // Simple pacing (~60–70 fps on many boards; adjust as you like)
         sysDelay(16);

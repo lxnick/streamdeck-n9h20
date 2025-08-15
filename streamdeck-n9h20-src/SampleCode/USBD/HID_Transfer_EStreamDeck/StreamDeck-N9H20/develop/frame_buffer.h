@@ -28,4 +28,6 @@ void fb_fill_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color
 
 void fb_copy_rect(uint8_t* src, uint16_t srcw, uint16_t srch, uint16_t destx, uint16_t desty);
 
+void fb_test(void);
+
 #endif // FRAME_BUFFER_HEADER
