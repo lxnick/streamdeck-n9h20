@@ -80,13 +80,13 @@ uint8_t *fb_get_display_buffer_nc(void)
 
 void fb_flush_region(int x, int y, int w, int h)
 {
-		uint32_t start;
-		uint32_t end;
-		uint32_t aligned_start;
-		uint32_t aligned_end;	
+//		uint32_t start;
+//		uint32_t end;
+//		uint32_t aligned_start;
+//		uint32_t aligned_end;	
 //		uint32_t len;	
 	
-		uint8_t* draw_c;
+	//	uint8_t* draw_c;
 
     if (w <= 0 || h <= 0) return;
     if (x < 0) { w += x; x = 0; }
@@ -95,12 +95,12 @@ void fb_flush_region(int x, int y, int w, int h)
     if (x + w > FB_WIDTH)  w = FB_WIDTH  - x;
     if (y + h > FB_HEIGHT) h = FB_HEIGHT - y;
 
-    draw_c = fb_get_draw_buffer();
+//    draw_c = fb_get_draw_buffer();
 
-    start = (UINT32)(draw_c + (y * FB_WIDTH + x) * FB_PER_PIXEL);
-    end   = (UINT32)(draw_c + ((y + h - 1) * FB_WIDTH + (x + w)) * FB_PER_PIXEL);
-    aligned_start = ALIGN_DOWN(start, CACHE_LINE_BYTES);
-    aligned_end   = ALIGN_UP(end,   CACHE_LINE_BYTES);
+ //   start = (UINT32)(draw_c + (y * FB_WIDTH + x) * FB_PER_PIXEL);
+ //   end   = (UINT32)(draw_c + ((y + h - 1) * FB_WIDTH + (x + w)) * FB_PER_PIXEL);
+//    aligned_start = ALIGN_DOWN(start, CACHE_LINE_BYTES);
+ //   aligned_end   = ALIGN_UP(end,   CACHE_LINE_BYTES);
 //    len           = aligned_end - aligned_start;
 
 //    sysFlushCache((UINT8 *)aligned_start, len);
@@ -138,7 +138,7 @@ void fb_fill_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color
 
 void fb_copy_rect(uint8_t* src, uint16_t srcw, uint16_t srch, uint16_t destx, uint16_t desty)
 {
-		int i, j;
+		int i;
 	
 		uint8_t* dest = fb_get_draw_buffer();
 		int dest_offset = (desty*FB_LINE+ destx*FB_PER_PIXEL);

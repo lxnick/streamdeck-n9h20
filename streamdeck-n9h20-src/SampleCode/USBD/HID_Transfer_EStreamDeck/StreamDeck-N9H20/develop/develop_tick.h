@@ -22,6 +22,8 @@ void develop_tick_stop(INT32 nTimeNo);
 INT32 develop_tick_set_event(INT32 nTimeNo, UINT32 ticks, FN_TICK_EVENT);
 UINT32 develop_tick_get_count(INT32 nTimeNo);
 UINT32 develop_tick_get_ms(INT32 nTimeNo);
+
+void develop_tick_test(void);
 	
 
 #endif // #ifndef DEVELOP_TICK_UTILITY_HEADER

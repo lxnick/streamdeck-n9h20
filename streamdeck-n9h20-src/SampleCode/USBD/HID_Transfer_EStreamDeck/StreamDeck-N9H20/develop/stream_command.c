@@ -1,6 +1,7 @@
 #include "stream_command.h"
 #include "frame_buffer.h"
-
+ #include <stdlib.h>
+ 
 #include "N9H20_JPEG.h"
 
 #include "develop_tick.h"
@@ -257,7 +258,6 @@ void receive_elgato(uint8_t* buffer, int length)
 	data_length = 	buffer[4] + (buffer[5] << 8);
 	memcpy(	session.buffer + 	session.collected, buffer + 8, data_length);
 	session.collected += data_length;
-		
 	
 	if ( 	buffer[3] == 1)
 	{	
@@ -266,6 +266,7 @@ void receive_elgato(uint8_t* buffer, int length)
 		node.active = 1;
 		node.op = OP_FILE;
 		node.icon = session.icon_id;
+		node.rotate = ROTATE_180;
 		node.buffer = (uint8_t*) malloc( session.collected );
 		memcpy( node.buffer,session.buffer, session.collected);
 		node.length = session.collected;
@@ -273,7 +274,6 @@ void receive_elgato(uint8_t* buffer, int length)
 		node.y = (session.icon_id / ICON_ROW_COUNT) * ICON_SPACE_HEIGHT + 8;	
 		
 		op_queue_add(&node);
-		
 		reset_receive_session();
 	}	
 }
@@ -317,7 +317,7 @@ void on_receive_data(uint8_t* buffer, int length)
 		case COMMAND_FILL:
 			receive_fill(buffer,length);
 			break;
-		case COMMAND_DRAW_JPEG:
+		case COMMAND_DRAW:
 			receive_draw(buffer,length);
 			break;
 		default:

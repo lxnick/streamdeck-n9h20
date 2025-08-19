@@ -43,6 +43,7 @@ bool op_queue_release(struct op_node* node)
             return  true;
         }
     }
+		return  false;
 }
 
 bool op_queue_get(struct op_node* node)

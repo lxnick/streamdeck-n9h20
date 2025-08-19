@@ -35,17 +35,16 @@ void command_fill(uint8_t* p)
 	uint16_t y;
 	uint16_t w;
 	uint16_t h;
-	uint16_t c;
+//	uint32_t c;
 	
 	struct stream_deck_fill* fill = (struct stream_deck_fill*) p;
 	
-	x = make_word(fill->x_hi, fill->x_low);
-	y = make_word(fill->y_hi, fill->y_low);
-	w = make_word(fill->size_x_hi, fill->size_x_low);
-	h = make_word(fill->size_y_hi, fill->size_y_low);	
-	c = make_word(fill->color_hi, fill->color_low);	
+	x = fill->rect.x;
+	y = fill->rect.y;
+	w = fill->rect.w;
+	h = fill->rect.h;	
+//	c = fill->color;	
 
-	osd_fill_rgb565(g_FrameBuffer,PANEL_WIDTH, PANEL_HEIGHT, x,y,w,h,c);
-
+//	osd_fill_rgb565(g_FrameBuffer,PANEL_WIDTH, PANEL_HEIGHT, x,y,w,h,c);
 }
 

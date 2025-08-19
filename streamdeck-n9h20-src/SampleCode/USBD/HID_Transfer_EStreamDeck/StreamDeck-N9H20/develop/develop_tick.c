@@ -31,3 +31,4 @@ UINT32 develop_tick_get_ms(INT32 nTimeNo)
 {
 		return sysGetTicks(nTimeNo)/100;
 }
+

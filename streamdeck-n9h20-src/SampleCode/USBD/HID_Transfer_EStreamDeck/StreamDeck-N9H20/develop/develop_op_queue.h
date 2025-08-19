@@ -16,12 +16,19 @@
 
 #define MAX_OP      32
 
+#define ROTATE_0					0
+#define ROTATE_90				90
+#define ROTATE_180				180
+#define ROTATE_270				270
+
 struct op_node
 {
 	uint8_t active;
 	uint8_t op;
+	uint8_t rotate;
 	
 	uint16_t icon;
+	
 
 	uint16_t x;
 	uint16_t y;
