@@ -37,7 +37,7 @@ void command_fill(uint8_t* p)
 	uint16_t h;
 //	uint32_t c;
 	
-	struct stream_deck_fill* fill = (struct stream_deck_fill*) p;
+	struct stream_fill* fill = (struct stream_fill*) p;
 	
 	x = fill->rect.x;
 	y = fill->rect.y;

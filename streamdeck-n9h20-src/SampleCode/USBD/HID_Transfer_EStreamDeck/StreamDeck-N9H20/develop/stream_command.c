@@ -282,10 +282,10 @@ void receive_fill(uint8_t* buffer, int length)
 {
 }	
 
-void receive_draw(uint8_t* buffer, int length)
+void receive_jpeg(uint8_t* buffer, int length)
 {
 	uint16_t  data_length;	
-	struct stream_deck_draw* draw = (struct stream_deck_draw*) buffer;
+	struct stream_jpeg* draw = (struct stream_jpeg*) buffer;
 	
 	if ( session.total_length != draw->image.total_length )
 			reset_receive_session();	
@@ -301,24 +301,39 @@ void receive_draw(uint8_t* buffer, int length)
 	session.collected += data_length;
 	
 	if ( session.collected == session.total_length )
-		session.receive_done = true;
+	{	
+		struct op_node node;
+		
+		node.active = 1;
+		node.op = OP_FILE;
+		node.icon = 0;
+		node.rotate = 0;
+		node.buffer = (uint8_t*) malloc( session.collected );
+		memcpy( node.buffer,session.buffer, session.collected);
+		node.length = session.collected;
+		node.x = draw->rect.x;
+		node.y = draw->rect.y;	
+		
+		op_queue_add(&node);
+		reset_receive_session();
+	}
 }	
 
 void on_receive_data(uint8_t* buffer, int length)
 {
-	if ( buffer[0] != REPORT_ID )
+	if ( buffer[0] != REPORT_ID_OUTPUT )
 		return ;
 				
 	switch ( buffer[1] )
 	{
-		case COMMAND_ELGATO:
+		case OUTPUT_ELGATO:
 			receive_elgato(buffer,length);
 			break;
-		case COMMAND_FILL:
+		case OUTPUT_FILL:
 			receive_fill(buffer,length);
 			break;
-		case COMMAND_DRAW:
-			receive_draw(buffer,length);
+		case OUTPUT_JPEG:
+			receive_jpeg(buffer,length);
 			break;
 		default:
 			break;
