@@ -13,6 +13,7 @@
 #include "develop/frame_buffer.h"
 #include "develop/develop_tick.h"
 #include "develop/develop_op_queue.h"
+#include "develop/develop_app.h"
 
 void HIDStart(void);
 
@@ -113,6 +114,11 @@ int main(void)
     // gpio_interrupt_init();
     kpi_init();
     kpi_open(3); // use nIRQ0 as external interrupt source
+		
+		adc_init();
+		adc_open(ADC_TS_4WIRE, PANEL_WIDTH, PANEL_HEIGHT);	
+
+
 
     jpegOpen();
 
@@ -129,6 +135,7 @@ int main(void)
 				
 //				draw_icon();
 //        key_press();
+				develop_touch_adc();
 			
 				main_task();
 		

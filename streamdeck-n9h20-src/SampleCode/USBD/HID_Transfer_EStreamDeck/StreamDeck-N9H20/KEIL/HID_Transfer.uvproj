@@ -479,6 +479,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Driver\Source\VPOST\N9H20_VPOST_FW050TFT_800x480.c</FilePath>
             </File>
+            <File>
+              <FileName>N9H20_ADC.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\..\Library\IPLib\N9H20_ADC.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -548,6 +553,16 @@
               <FileName>develop_op_queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\develop\develop_op_queue.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_touch.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_app.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1025,6 +1040,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Driver\Source\VPOST\N9H20_VPOST_FW050TFT_800x480.c</FilePath>
             </File>
+            <File>
+              <FileName>N9H20_ADC.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\..\Library\IPLib\N9H20_ADC.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1094,6 +1114,16 @@
               <FileName>develop_op_queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\develop\develop_op_queue.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_touch.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_app.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1571,6 +1601,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Driver\Source\VPOST\N9H20_VPOST_FW050TFT_800x480.c</FilePath>
             </File>
+            <File>
+              <FileName>N9H20_ADC.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\..\Library\IPLib\N9H20_ADC.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1640,6 +1675,16 @@
               <FileName>develop_op_queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\develop\develop_op_queue.h</FilePath>
+            </File>
+            <File>
+              <FileName>develop_touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\develop\develop_touch.c</FilePath>
+            </File>
+            <File>
+              <FileName>develop_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\develop\develop_app.h</FilePath>
             </File>
           </Files>
         </Group>

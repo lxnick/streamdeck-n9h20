@@ -697,6 +697,25 @@ void EPB_Handler(UINT32 u32IntEn, UINT32 u32IntStatus)
     }
 }
 
+void  HID_SendInputReport(uint8_t* data, int count)
+{
+		memset( &g_u8PageBuff[0], 0, EPA_MAX_PKT_SIZE);
+		memcpy( &g_u8PageBuff[0], data, count );
+
+    while (inp32(DMA_CTRL_STS) & DMA_EN)
+        ; /* Wait DMA Ready */
+
+    /* Prepare the data for next HID IN transfer */
+    outp32(DMA_CTRL_STS, 0x11);                         /* bulk in, dma read, ep1 */
+    outp32(AHB_DMA_ADDR, (UINT32)&g_u8PageBuff[0]);     /*Address for DMA */
+    outp32(DMA_CNT, EPA_MAX_PKT_SIZE);                  /* DMA length */
+    outp32(DMA_CTRL_STS, inp32(DMA_CTRL_STS) | DMA_EN); /* Trigger DMA */
+
+    while (inp32(DMA_CTRL_STS) & DMA_EN)
+        ; /* Wait DMA Complete */
+}
+
+
 //==================================================================================================
 void draw_icon(void)
 {
