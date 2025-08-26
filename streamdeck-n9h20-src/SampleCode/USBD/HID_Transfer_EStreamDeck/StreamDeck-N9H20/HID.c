@@ -12,6 +12,12 @@
 #include "develop/stream_command.h"
 
 // #define __FORCE_FULLSPEED__
+#define  LOOP_KEY		(1)
+#define RPTID_KB  0x0D 
+
+#define HID_PROTOCOL_BOOT   0
+#define HID_PROTOCOL_REPORT 1
+static volatile UINT8 g_hid_protocol = HID_PROTOCOL_REPORT;
 
 /* Mass_Storage command base address */
 extern volatile USBD_INFO_T usbdInfo;
@@ -112,6 +118,47 @@ UINT8 HID_DeviceReportDescriptor[] __attribute__((aligned(4))) =
 __align(4) UINT8 HID_DeviceReportDescriptor[] =
 #endif
     {
+#if LOOP_KEY
+// === Keyboard (Report ID = RPTID_KB) ===
+0x05, 0x01,              // Usage Page (Generic Desktop)
+0x09, 0x06,              // Usage (Keyboard)
+0xA1, 0x01,              // Collection (Application)
+  0x85, RPTID_KB,        //   Report ID = RPTID_KB 
+  // Modifiers (8 bits)
+  0x05, 0x07,            //   Usage Page (Keyboard/Keypad)
+  0x19, 0xE0,            //   Usage Minimum (E0)
+  0x29, 0xE7,            //   Usage Maximum (E7)
+  0x15, 0x00,            //   Logical Minimum (0)
+  0x25, 0x01,            //   Logical Maximum (1)
+  0x75, 0x01,            //   Report Size (1)
+  0x95, 0x08,            //   Report Count (8)
+  0x81, 0x02,            //   Input (Data,Var,Abs)
+  // Reserved (1 byte)
+  0x95, 0x01,
+  0x75, 0x08,
+  0x81, 0x01,            //   Input (Const,Array,Abs)
+  // LEDs (5 bits) + padding (3 bits) —— Output
+  0x05, 0x08,            //   Usage Page (LEDs)
+  0x19, 0x01,            //   Usage Minimum (Num Lock)
+  0x29, 0x05,            //   Usage Maximum (Kana)
+  0x75, 0x01,
+  0x95, 0x05,
+  0x91, 0x02,            //   Output (Data,Var,Abs)
+  0x75, 0x03,
+  0x95, 0x01,
+  0x91, 0x01,            //   Output (Const,Array,Abs)
+  // Keys array (6 bytes, 6KRO)
+  0x05, 0x07,
+  0x19, 0x00,
+  0x29, 0x65,
+  0x15, 0x00,
+  0x25, 0x65,
+  0x75, 0x08,
+  0x95, 0x06,
+  0x81, 0x00,            //   Input (Data,Array,Abs)
+0xC0,                    // End Collection
+			
+#endif			
         0x05, 0x0C,       /* Usage Page (Consumer Devices) */
         0x09, 0x01,       /* Usage (Consumer Control) */
         0xA1, 0x01,       /* Collection (Application) */
@@ -803,6 +850,20 @@ void hidInit(void)
     g_u8PageBuff[1] = 0x00; // command
     g_u8PageBuff[2] = 0x0F; // icon number for Elgato Stream Deck MK.2 must be 0x0F
     g_u8PageBuff[3] = 0x00; // icon number for Elgato Stream Deck MK.2 must be 0x00
+}
+
+static void HID_SendKeyboard(UINT8 modifiers, const UINT8 keys[6])
+{
+    UINT8 pkt[1+8];
+    int n = 0;
+
+        pkt[0] = RPTID_KB;     // e.g. 0x0D
+        pkt[1] = modifiers;
+        pkt[2] = 0x00;
+        memcpy(&pkt[3], keys, 6);
+        n = 9;
+  
+    HID_SendInputReport(pkt, n); // ??:?????? count,???????
 }
 
 //==================================================================================================
