@@ -15,6 +15,9 @@
 /* HID report ID */
 #define REPORT_ID_INPUT			(0x01)
 #define REPORT_ID_OUTPUT		(0x02)
+
+#define REPORT_ID_KEYBOARD	(0x0D)
+
 #define REPORT_ID_FEATURE_3		(0x03)
 #define REPORT_ID_FEATURE_12	(0x0C)
 

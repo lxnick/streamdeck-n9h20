@@ -12,5 +12,8 @@
 
 void develop_touch_adc(void);
 
+void develop_scenario_init(void);
+void develop_scenario_run(void);
+
 #endif // #ifndef DEVELOP_APP_UTILITY_HEADER
 

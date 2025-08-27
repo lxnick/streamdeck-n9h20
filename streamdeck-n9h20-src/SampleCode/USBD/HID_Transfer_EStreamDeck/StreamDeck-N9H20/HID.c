@@ -852,7 +852,7 @@ void hidInit(void)
     g_u8PageBuff[3] = 0x00; // icon number for Elgato Stream Deck MK.2 must be 0x00
 }
 
-static void HID_SendKeyboard(UINT8 modifiers, const UINT8 keys[6])
+void HID_SendKeyboard(UINT8 modifiers, const UINT8 keys[6])
 {
     UINT8 pkt[1+8];
     int n = 0;

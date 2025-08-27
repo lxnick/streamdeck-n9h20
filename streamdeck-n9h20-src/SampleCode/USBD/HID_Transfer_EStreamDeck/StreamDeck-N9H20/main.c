@@ -42,7 +42,7 @@ void delay(int delay)
 
 
 
-volatile BOOL new_frame_flag = FALSE;
+volatile BOOL scenario_timer_flag = FALSE;
 
 void tick_callback_10ms(void)
 {
@@ -53,12 +53,13 @@ void tick_callback_10ms(void)
 		{
 //			sysprintf("pass 1 second\n");
 			tick_count = 0;
-			new_frame_flag = TRUE;
+			scenario_timer_flag = TRUE;
 		}		
 //	new_frame_flag = TRUE;		
 }
 
-
+UINT8 key_pattern[6]	= {0x04 ,0x00};
+extern  void HID_SendKeyboard(UINT8 modifiers, const UINT8 keys[6]);
 //==================================================================================================
 int main(void)
 {
@@ -129,8 +130,14 @@ int main(void)
     while (1)
     {
 
-				
-
+					if ( scenario_timer_flag )
+					{	
+//							develop_scenario_run();
+							HID_SendKeyboard(0,  key_pattern );
+							scenario_timer_flag = false;
+					}
+						
+	
 //				sysprintf("Tick  %d\n",u32Tick );				
 				
 //				draw_icon();

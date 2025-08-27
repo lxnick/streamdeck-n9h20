@@ -319,25 +319,55 @@ void receive_jpeg(uint8_t* buffer, int length)
 	}
 }	
 
+#define LED_NUM_LOCK			(1<<0)
+#define LED_CAP_LOCK			(1<<1)
+#define LED_SCROLL_LOCK			(1<<2)
+#define LED_COMPOSE				(1<<3)
+#define LED_KANA				(1<<4)
+uint8_t led_status = 0;
+void receive_keyboard(uint8_t* buffer, int length)
+{
+	led_status = buffer[1];
+	return ;	
+}
+
+
 void on_receive_data(uint8_t* buffer, int length)
 {
+#if 0	
 	if ( buffer[0] != REPORT_ID_OUTPUT )
-		return ;
-				
-	switch ( buffer[1] )
 	{
-		case OUTPUT_ELGATO:
-			receive_elgato(buffer,length);
-			break;
-		case OUTPUT_FILL:
-			receive_fill(buffer,length);
-			break;
-		case OUTPUT_JPEG:
-			receive_jpeg(buffer,length);
+		sysprintf("USB out 0x%02x\n", buffer[0] );
+		return ;
+	}	
+#endif	
+	switch ( buffer[0]) 
+	{
+		case REPORT_ID_OUTPUT:	// ID=2, common stream output
+			switch ( buffer[1] )
+			{
+				case OUTPUT_ELGATO:
+					receive_elgato(buffer,length);
+					break;
+				case OUTPUT_FILL:
+					receive_fill(buffer,length);
+					break;
+				case OUTPUT_JPEG:
+					receive_jpeg(buffer,length);
+					break;
+				default:
+					sysprintf("Unknown command on ID_2\n");
+					break;
+			}
+		case REPORT_ID_KEYBOARD:// ID=2, common stream output
+			receive_keyboard(buffer,length);
 			break;
 		default:
+			sysprintf("Unknown(%d) [%02x, %02x,%02x,%02x]\n", length, buffer[0],buffer[1],buffer[2],buffer[3] );	
 			break;
-	}	
+	}		
+			
+					
 }	
 
 void  TestCopyRect(uint16_t x, uint16_t y,  uint16_t w,  uint16_t  h)
