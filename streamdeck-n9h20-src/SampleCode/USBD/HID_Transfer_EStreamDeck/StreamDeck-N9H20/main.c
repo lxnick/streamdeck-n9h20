@@ -41,7 +41,6 @@ void delay(int delay)
 }
 
 
-
 volatile BOOL scenario_timer_flag = FALSE;
 
 void tick_callback_10ms(void)
@@ -107,7 +106,7 @@ int main(void)
 		
 //		fb_init();
 		develop_tick_start(TIMER0,TICK_10US);
-		develop_tick_set_event(TIMER0, 1000, tick_callback_10ms );
+		develop_tick_set_event(TIMER0, 100, tick_callback_10ms );
 		
 		op_queue_init();
 		
@@ -119,13 +118,9 @@ int main(void)
 		adc_init();
 		adc_open(ADC_TS_4WIRE, PANEL_WIDTH, PANEL_HEIGHT);	
 
-
-
     jpegOpen();
 
     HIDStart();
-		
-
 
     while (1)
     {
@@ -133,8 +128,10 @@ int main(void)
 					if ( scenario_timer_flag )
 					{	
 //							develop_scenario_run();
-							HID_SendKeyboard(0,  key_pattern );
+//							HID_SendKeyboard(0,  key_pattern );
+							develop_job_run();
 							scenario_timer_flag = false;
+						continue;
 					}
 						
 	

@@ -16,10 +16,11 @@
 #define REPORT_ID_INPUT			(0x01)
 #define REPORT_ID_OUTPUT		(0x02)
 
-#define REPORT_ID_KEYBOARD	(0x0D)
+
 
 #define REPORT_ID_FEATURE_3		(0x03)
 #define REPORT_ID_FEATURE_12	(0x0C)
+#define REPORT_ID_KEYBOARD		(0x0D)
 
 struct  stream_header
 {
@@ -111,6 +112,19 @@ struct  stream_image
 	uint16_t data_flag;
 };
 
+struct stream_job_key
+{
+	uint16_t delay;
+	uint8_t	key[6];
+};
+
+struct  stream_job_data
+{
+	uint32_t total_length;
+	uint16_t block_size;
+	uint16_t data_flag;
+};
+
 #define OUTPUT_ELGATO		(0x07)
 #define IMAGE_END			0x01
 
@@ -187,6 +201,37 @@ struct stream_jpeg
 	struct stream_rect rect;
 	struct stream_image image;
 	uint8_t data[1];
+};
+
+#define OUTPUT_JOB			(0x12)
+/*
++----+----------+---------------+------------------------------------------ - +
+|Byte | Field    | Value / Notes |
++-----+----------+---------------+------------------------------------------ - +
+|  0  | ReportId | 0x02          |
+|  1  | Command  | 0x12          |
+| 2/3 | length   |               | data size for stream_job_item  
+| 4/5 | count    |               | key count to bo sent
+| 6/7 | reserved |               | reserved 
+| 8/9 | Key-Delay|               | delay time to send key (in ms )
+|10/  | Key-Mod  |               | HID Key[0] Modifier
+|11/  | Key-Res  |               | HID Key[1] Reserved
+|10/  | Key-6    |               | HID Key[2~7] Key pattern
+More  Keys
++----+--------------------------+------------------------------------------ - +
+*/
+struct stream_job_item
+{
+	uint16_t length;
+	uint16_t count;	
+	uint16_t reserved;			
+	struct stream_job_key key[1];
+};
+
+struct stream_job
+{	
+	struct stream_header header;	
+	struct stream_job_item item;
 };
 
 #define RGB565_RED			(0xF800)

@@ -7,6 +7,8 @@
 #include "develop_tick.h"
 #include "develop_op_queue.h"
 
+#define JOB_TICK_TIME		(10)	// 10 MS
+
 struct receive_session
 {
 	uint8_t report_id;
@@ -49,6 +51,7 @@ struct receive_session receive_data;
 
 struct decode_info decode_data;
 
+struct stream_job_item* job_item = NULL;
 
 struct download_data download_data_info = 
 {
@@ -319,15 +322,52 @@ void receive_jpeg(uint8_t* buffer, int length)
 	}
 }	
 
+//struct stream_job
+//{	
+//	struct stream_header header;	
+	
+//	uint32_t length;
+//	uint16_t count;	
+//	uint16_t reserved;			// SET to 0
+//	struct stream_job_key key[1];	
+//};
+	
+void receive_job(uint8_t* buffer, int length)
+{
+	struct stream_job* job = (struct stream_job*) buffer;
+	
+	if ( session.total_length != job->item.length )
+			reset_receive_session();	
+	
+	session.total_length = job->item.length;
+	
+	memcpy(	session.buffer + 	session.collected, &job->item, job->item.length);
+	session.collected += job->item.length ;
+	
+	if ( session.collected == session.total_length )
+	{
+			if ( job_item != NULL)
+				free (job_item);
+    job_item = malloc(  job->item.length);
+		memcpy( job_item, session.buffer, job->item.length);	
+		job_item->reserved = 0;
+			
+		reset_receive_session();
+	}
+}	
+
 #define LED_NUM_LOCK			(1<<0)
 #define LED_CAP_LOCK			(1<<1)
 #define LED_SCROLL_LOCK			(1<<2)
 #define LED_COMPOSE				(1<<3)
 #define LED_KANA				(1<<4)
-uint8_t led_status = 0;
+
 void receive_keyboard(uint8_t* buffer, int length)
 {
-	led_status = buffer[1];
+	uint8_t led = buffer[1];
+	sysprintf("LED[0x%02x]: NumLock(%d), CapLock(%d), ScrollLOck(%d)\n",
+		led, (led & LED_NUM_LOCK), (led & LED_CAP_LOCK) >> 1, (led & LED_SCROLL_LOCK) >> 2);
+
 	return ;	
 }
 
@@ -355,6 +395,9 @@ void on_receive_data(uint8_t* buffer, int length)
 				case OUTPUT_JPEG:
 					receive_jpeg(buffer,length);
 					break;
+				case OUTPUT_JOB:
+					receive_job(buffer,length);
+					break;				
 				default:
 					sysprintf("Unknown command on ID_2\n");
 					break;
@@ -384,7 +427,34 @@ void  TestCopyRect(uint16_t x, uint16_t y,  uint16_t w,  uint16_t  h)
 	
 }
 
+extern  void HID_SendKeyboard(UINT8 modifiers, const UINT8 keys[6]);
+void develop_job_run(void)
+{
+	uint8_t* kptr;
+	
+	int index;
+	if ( job_item == NULL)
+			return ;
+	
+	if ( job_item->reserved == job_item->count )
+	{
+		free( job_item);
+		job_item = NULL;
+	}
 
+	if ( job_item->key[ job_item->reserved].delay > JOB_TICK_TIME )
+			job_item->key[ job_item->reserved].delay -= JOB_TICK_TIME;
+	else
+	{
+		job_item->key[ job_item->reserved].delay = 0;
+
+		kptr =  &(job_item->key[ job_item->reserved].key[0]);
+		HID_SendKeyboard(kptr[0], &kptr[2]);
+		sysprintf("KEY(%d) [%02x] [%02x,%02x,...]\n",job_item->reserved, kptr[0], kptr[2],kptr[3]);				
+
+		job_item->reserved ++;	
+	}
+}	
 
 void  main_task(void)
 {
