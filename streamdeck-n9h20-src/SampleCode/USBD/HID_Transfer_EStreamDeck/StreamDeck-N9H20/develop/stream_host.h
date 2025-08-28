@@ -115,15 +115,9 @@ struct  stream_image
 struct stream_job_key
 {
 	uint16_t delay;
-	uint8_t	key[6];
+	uint8_t	key[8];
 };
 
-struct  stream_job_data
-{
-	uint32_t total_length;
-	uint16_t block_size;
-	uint16_t data_flag;
-};
 
 #define OUTPUT_ELGATO		(0x07)
 #define IMAGE_END			0x01

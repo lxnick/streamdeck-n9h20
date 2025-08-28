@@ -436,10 +436,11 @@ void develop_job_run(void)
 	if ( job_item == NULL)
 			return ;
 	
-	if ( job_item->reserved == job_item->count )
+	if ( job_item->reserved >= job_item->count )
 	{
 		free( job_item);
 		job_item = NULL;
+		return;
 	}
 
 	if ( job_item->key[ job_item->reserved].delay > JOB_TICK_TIME )

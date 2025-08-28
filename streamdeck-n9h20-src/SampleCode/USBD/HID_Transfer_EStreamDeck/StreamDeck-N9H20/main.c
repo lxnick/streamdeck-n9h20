@@ -91,6 +91,8 @@ int main(void)
                       192000 / 4); // UINT32 u32ApbKHz
 
     sysprintf("Demo code Start\n");
+    sysprintf("VID=0x%04x\n", USB_VID);		
+		sysprintf("PID=0x%04x\n", USB_PID);				
 
     // shift the frame buffer to 0x80000000
     g_FrameBuffer = (CHAR *)((UINT32)g_pu8FrameBuffer | 0x80000000);

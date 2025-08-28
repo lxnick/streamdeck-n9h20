@@ -15,7 +15,11 @@ extern "C"
 // #define USB_VID    0x0416
 // #define USB_PID    0x5020
 // Eden
-#define USB_VID 0x0FD9
+
+// 	ELGATO Stream Deck VID/PID
+// #define USB_VID 0x0FD9
+// Change To Chicony VID	
+#define USB_VID 0x04F2	
 #define USB_PID 0x0080
 
 /*!<USB Descriptor Type */
